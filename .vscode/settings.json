@@ -1,0 +1,15 @@
+{
+    // "dart.flutterSdkPath": "C:\\flutter2",
+    "dart.sdkPath": "/home/ashishpoudyal/Sdk/flutter/",
+    "dart.flutterSdkPath": "/home/ashishpoudyal/Sdk/flutter",
+    "editor.codeActionsOnSave": null,
+    "editor.parameterHints.enabled": false,
+    "launch": {
+
+        "configurations": [],
+        "compounds": []
+    }
+    
+   
+
+}
