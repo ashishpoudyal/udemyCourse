@@ -29,6 +29,8 @@ environment:
 dependencies:
   analyzer: ^5.2.0
   build_runner: ^2.3.2
+  carousel_slider: ^4.2.1
+  country_code_picker: ^2.0.2
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
   data_connection_checker: ^0.3.4
@@ -39,11 +41,13 @@ dependencies:
   flutter_svg: ^1.1.6
   freezed: ^2.3.2
   get_it: ^7.2.0
+  image_picker: ^0.8.6
   json_serializable: ^6.5.4
-  lottie: 
+  lottie: null
   pretty_dio_logger: ^1.1.1
   retrofit: null
   retrofit_generator: null
+  rxdart: ^0.27.7
   shared_preferences: ^2.0.15
 
 dev_dependencies:

@@ -73,6 +73,21 @@ class EmptyState extends FlowState {
   }
 }
 
+//Sucess State
+class SucessState extends FlowState {
+  String message;
+  SucessState(this.message);
+  @override
+  String getMessage() {
+    return message;
+  }
+
+  @override
+  StateRenderType getStateRenderType() {
+    return StateRenderType.POPUP_SUCESS_STATE;
+  }
+}
+
 extension FlowStateExtension on FlowState {
   Widget getScreenWidget(BuildContext context, Widget contentScreenWidget,
       Function retryActionFunction) {
@@ -81,7 +96,7 @@ extension FlowStateExtension on FlowState {
         {
           if (getStateRenderType() == StateRenderType.POPUP_LOADING_STATE) {
             //showing popup dialog
-            showPopUp(context, getStateRenderType(), getMessage());
+            showPopUp(context, getStateRenderType(), getMessage(), "");
             //return the content ui of the screen
 
             return contentScreenWidget;
@@ -100,7 +115,7 @@ extension FlowStateExtension on FlowState {
           dismissDialog(context);
           if (getStateRenderType() == StateRenderType.POPUP_ERROR_STATE) {
             //showing popup dialog
-            showPopUp(context, getStateRenderType(), getMessage());
+            showPopUp(context, getStateRenderType(), getMessage(), "");
             //return the content ui of the screen
 
             return contentScreenWidget;
@@ -126,6 +141,14 @@ extension FlowStateExtension on FlowState {
               message: getMessage(),
               retryActionFunction: retryActionFunction);
         }
+      case SucessState:
+        {
+          dismissDialog(context);
+
+          showPopUp(context, StateRenderType.POPUP_SUCESS_STATE, getMessage(),
+              AppStrings.title);
+          return contentScreenWidget;
+        }
       default:
         {
           return Container();
@@ -141,13 +164,14 @@ extension FlowStateExtension on FlowState {
 
   _isThereCurrentDialogShowing(BuildContext context) =>
       ModalRoute.of(context)?.isCurrent != true;
-  showPopUp(
-      BuildContext context, StateRenderType stateRenderType, String message) {
+  showPopUp(BuildContext context, StateRenderType stateRenderType,
+      String message, String? title) {
     WidgetsBinding.instance.addPostFrameCallback((_) => showDialog(
         context: context,
         builder: (BuildContext context) => StateRenderer(
               stateRenderType: stateRenderType,
               message: message,
+              title: title,
               retryActionFunction: () {},
             )));
   }

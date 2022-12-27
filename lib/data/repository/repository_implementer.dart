@@ -34,4 +34,69 @@ class RepositoryImplementer extends Repository {
           ResponseMessage.NO_INTERNET_CONNECTION));
     }
   }
+
+  @override
+  Future<Either<Failure, String>> forgotPassword(String email) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        final response = await _remoteDataSource.forgotPassword(email);
+        if (response.status == ApiInternalStatus.SUCESS) {
+          return Right(response.toDomain());
+        } else {
+          return Left(Failure(response.status ?? ResponseCode.DEFAULT,
+              response.message ?? ResponseMessage.DEFAULT));
+        }
+      } catch (error) {
+        return Left(ErrorHandler.handle(error).failure);
+      }
+    } else {
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Authentication>> register(
+      RegisterRequest registerRequest) async {
+    if (await _networkInfo.isConnected) {
+//its safe to call the api
+      try {
+        final response = await _remoteDataSource.register(registerRequest);
+        if (response.status == ApiInternalStatus.SUCESS) {
+          return Right(response.toDomain());
+        } else {
+          return Left(Failure(response.status ?? ApiInternalStatus.FAILURE,
+              response.message ?? ResponseMessage.DEFAULT));
+        }
+      } catch (error) {
+        return Left((ErrorHandler.handle(error).failure));
+      }
+    } else {
+//return connection error
+      return Left(Failure(ResponseCode.NO_INTERNET_CONNECTION,
+          ResponseMessage.NO_INTERNET_CONNECTION));
+    }
+  }
+  
+  @override
+  Future<Either<Failure, HomeObject>> getHome()async {
+     
+    if (await _networkInfo.isConnected) {
+//its safe to call the api
+      try {
+        final response = await _remoteDataSource.getHome();
+        if (response.status == ApiInternalStatus.SUCESS) {
+          return Right(response.toDomain());
+        } else {
+          return Left(Failure(response.status ?? ApiInternalStatus.FAILURE,
+              response.message ?? ResponseMessage.DEFAULT));
+        }
+      } catch (error) {
+        return Left((ErrorHandler.handle(error).failure));
+      }
+    } else {
+//return connection error
+      return Left(Failure(ResponseCode.NO_INTERNET_CONNECTION,
+          ResponseMessage.NO_INTERNET_CONNECTION));
+    }
+  }
 }

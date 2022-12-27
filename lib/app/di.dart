@@ -7,9 +7,16 @@ import 'package:flutter_application_udemy_mvvm/data/network/dio_factory.dart';
 import 'package:flutter_application_udemy_mvvm/data/network/network_info.dart';
 import 'package:flutter_application_udemy_mvvm/data/repository/repository_implementer.dart';
 import 'package:flutter_application_udemy_mvvm/domain/repository/repository.dart';
+import 'package:flutter_application_udemy_mvvm/domain/usecase/forgot_usecase.dart';
+import 'package:flutter_application_udemy_mvvm/domain/usecase/home_usecase.dart';
 import 'package:flutter_application_udemy_mvvm/domain/usecase/login_usecase.dart';
+import 'package:flutter_application_udemy_mvvm/domain/usecase/register_usecase.dart';
+import 'package:flutter_application_udemy_mvvm/presentation/forgot_password/forgot_viewmodel.dart';
 import 'package:flutter_application_udemy_mvvm/presentation/login/login_viewmodel.dart';
+import 'package:flutter_application_udemy_mvvm/presentation/main/home/home_viewmodel.dart';
+import 'package:flutter_application_udemy_mvvm/presentation/register/register_viewmodel.dart';
 import 'package:get_it/get_it.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final instance = GetIt.instance;
@@ -49,5 +56,34 @@ initLoginModule() {
   if (!GetIt.I.isRegistered<LoginUseCase>()) {
     instance.registerFactory<LoginUseCase>(() => LoginUseCase(instance()));
     instance.registerFactory<LoginViewModel>(() => LoginViewModel(instance()));
+  }
+}
+
+initForgotModule() {
+  if (!GetIt.I.isRegistered<ForgotPasswordUseCase>()) {
+    instance.registerFactory<ForgotPasswordUseCase>(
+        () => ForgotPasswordUseCase(instance()));
+    instance
+        .registerFactory<ForgotViewModel>(() => ForgotViewModel(instance()));
+  }
+}
+
+initRegisterModule() {
+  if (!GetIt.I.isRegistered<RegisterUseCase>()) {
+    instance
+        .registerFactory<RegisterUseCase>(() => RegisterUseCase(instance()));
+    instance.registerFactory<RegisterViewModel>(
+        () => RegisterViewModel(instance()));
+         instance.registerFactory<ImagePicker>(
+        () => ImagePicker());
+  }
+}
+initHomeModule() {
+  if (!GetIt.I.isRegistered<HomeUseCase>()) {
+    instance
+        .registerFactory<HomeUseCase>(() => HomeUseCase(instance()));
+    instance.registerFactory<HomeViewModel>(
+        () => HomeViewModel(instance()));
+       
   }
 }

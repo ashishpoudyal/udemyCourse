@@ -13,10 +13,12 @@ class ImageAssets {
   static const String hollowCircle = "$IMAGE_PATH/hollow_cirlce_ic.svg";
   static const String solidCircle = "$IMAGE_PATH/solid_circle_ic.svg";
   static const String loginIc = "$IMAGE_PATH/login_ic.svg";
+  static const String photoCameraIc = "$IMAGE_PATH/photo_camera_ic.svg";
 }
 
 class JsonAssets {
   static const String loading = "$JSON_PATH/loading.json";
   static const String error = "$JSON_PATH/error.json";
   static const String empty = "$JSON_PATH/empty.json";
+  static const String success = "$JSON_PATH/success.json";
 }
